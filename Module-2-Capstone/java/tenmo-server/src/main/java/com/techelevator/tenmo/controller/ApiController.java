@@ -21,8 +21,9 @@ public ApiController(AccountDAO theAccounts){
     theAcctData = theAccounts;
 }
 @PreAuthorize("isAuthenticated()")
-@RequestMapping(path="/account/{id}", method = RequestMethod.GET)
-public double getBalance(@PathVariable long id) {
+@RequestMapping(path="account/{id}", method = RequestMethod.GET)
+public Double getBalance(@PathVariable long id) {
+
     return theAcctData.viewBalance(id);
 }
 

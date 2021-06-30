@@ -73,4 +73,12 @@ public class ConsoleService {
 		} while(result == null);
 		return result;
 	}
+
+	public void printError(String errorMessage) {
+		System.err.println(errorMessage);
+	}
+
+	public void printBalance(Double balance) {
+		System.out.println("Your current account balance is: $" + balance);
+	}
 }
