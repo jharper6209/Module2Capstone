@@ -4,7 +4,7 @@ import org.springframework.security.core.userdetails.User;
 
 public interface AccountDAO {
 
-    public Double viewBalance(long accountId);
+    public Account viewBalance(long userId);
 
 
 

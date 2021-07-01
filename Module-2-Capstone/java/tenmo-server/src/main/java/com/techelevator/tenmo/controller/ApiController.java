@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 ********************************************************************************************************/
 
 @RestController
-
 public class ApiController {
 AccountDAO theAcctData;
 
@@ -22,7 +21,7 @@ public ApiController(AccountDAO theAccounts){
 }
 @PreAuthorize("isAuthenticated()")
 @RequestMapping(path="account/{id}", method = RequestMethod.GET)
-public Double getBalance(@PathVariable long id) {
+public Account getBalance(@PathVariable long id) {
 
     return theAcctData.viewBalance(id);
 }

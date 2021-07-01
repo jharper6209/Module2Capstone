@@ -17,14 +17,14 @@ public class JDBCAccountDAO implements AccountDAO {
  }
 
     @Override
-    public Double viewBalance(long accountId) {
-     double currentBalance = 0;
-     String sqlViewBalance = "SELECT balance FROM accounts WHERE account_id = ?";
-        SqlRowSet results = theDatabase.queryForRowSet(sqlViewBalance, accountId);
+    public Account viewBalance(long userId) {
+     Account theAccount = new Account();
+     String sqlViewBalance = "SELECT balance FROM accounts WHERE user_id = ?";
+        SqlRowSet results = theDatabase.queryForRowSet(sqlViewBalance, userId);
         while (results.next()){
-            currentBalance = results.getDouble("balance");
+            theAccount = mapRowToAccount(results);
         }
-     return currentBalance;
+     return theAccount;
     }
 
 

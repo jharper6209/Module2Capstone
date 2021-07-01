@@ -26,7 +26,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
     private AuthenticatedUser currentUser;
     private ConsoleService console;
     private AuthenticationService authenticationService;
-    private TenmoApplicationServices applicationService;
+    private TenmoApplicationServices applicationService = new TenmoApplicationServices();
 
     public static void main(String[] args) {
     	TenmoApplicationProgram app = new TenmoApplicationProgram(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));

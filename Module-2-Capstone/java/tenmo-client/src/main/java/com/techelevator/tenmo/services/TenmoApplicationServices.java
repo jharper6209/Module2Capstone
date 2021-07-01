@@ -16,15 +16,12 @@ public class TenmoApplicationServices {
     public static final String API_BASE_URL = "http://localhost:8080/";
 
     public RestTemplate apiCall = new RestTemplate();
-    private ConsoleService console;
 
-    public Double viewBalance(long id) {
+    public Double viewBalance(long userId) {
         Account usersAccount = new Account();
-        try {
-         usersAccount = apiCall.getForObject(API_BASE_URL + "account/" + id, Account.class);
-        } catch (RestClientResponseException exception) {
-            console.printError("Account could not be located.");
-        }
+
+         usersAccount = apiCall.getForObject(API_BASE_URL + "account/" + userId, Account.class);
+
         return usersAccount.getBalance();
     }
 
