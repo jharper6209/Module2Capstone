@@ -86,6 +86,8 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void sendBucks() {
+    	console.printUsers(applicationService.getAllUsers());
+
 		// TODO - Put code for this process here
 		
 	}
