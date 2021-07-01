@@ -27,16 +27,6 @@ public class JDBCAccountDAO implements AccountDAO {
      return currentBalance;
     }
 
-    public long getAccountId(User user) {
-     long accountId = 0;
-     String sqlQuery = "SELECT account_id FROM accounts WHERE user_id = ?";
-     SqlRowSet results = theDatabase.queryForRowSet(sqlQuery, user.getId());
-     while (results.next()) {
-         accountId = results.getLong("account_id");
-     }
-     return accountId;
-    }
-
 
 
 

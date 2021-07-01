@@ -6,6 +6,6 @@ public interface AccountDAO {
 
     public Double viewBalance(long accountId);
 
-    public long getAccountId(User user);
+
 
 }
