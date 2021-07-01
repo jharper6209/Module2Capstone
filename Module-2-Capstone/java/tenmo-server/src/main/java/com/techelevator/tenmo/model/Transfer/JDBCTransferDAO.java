@@ -1,6 +1,13 @@
 package com.techelevator.tenmo.model.Transfer;
 
-public class JDBCTransferDAO {
+import org.springframework.stereotype.Component;
+
+@Component
+public class JDBCTransferDAO implements TransferDAO{
+
+    public JDBCTransferDAO(){
+
+    }
 
 
 }

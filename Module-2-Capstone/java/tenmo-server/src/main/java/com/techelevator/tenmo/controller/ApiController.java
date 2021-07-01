@@ -1,12 +1,11 @@
 package com.techelevator.tenmo.controller;
 
 import com.techelevator.tenmo.dao.UserSqlDAO;
-import com.techelevator.tenmo.model.TransferDTO;
+import com.techelevator.tenmo.model.Transfer.TransferDTO;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserDTO;
 import com.techelevator.tenmo.model.account.Account;
 import com.techelevator.tenmo.model.account.AccountDAO;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,14 +23,13 @@ public class ApiController {
 AccountDAO theAcctData;
 UserSqlDAO theUserData;
 TransferDTO aTransfer;
-UserDTO userDto;
 
 
-public ApiController(AccountDAO theAccounts, UserSqlDAO theUsers, UserDTO theUserDto, TransferDTO theTransfers){
+
+public ApiController(AccountDAO theAccounts, UserSqlDAO theUsers, TransferDTO theTransfers){
     theAcctData = theAccounts;
     theUserData = theUsers;
     aTransfer = theTransfers;
-    userDto = theUserDto;
 
 }
 //@PreAuthorize("isAuthenticated()")
