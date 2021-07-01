@@ -19,6 +19,7 @@ public class AuthenticationService {
     private String BASE_URL;
     private RestTemplate restTemplate = new RestTemplate();
 
+
     public AuthenticationService(String url) {
         this.BASE_URL = url;
     }
