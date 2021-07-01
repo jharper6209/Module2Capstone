@@ -19,7 +19,7 @@ public class JDBCAccountDAO implements AccountDAO {
     @Override
     public Account viewBalance(long userId) {
      Account theAccount = new Account();
-     String sqlViewBalance = "SELECT balance FROM accounts WHERE user_id = ?";
+     String sqlViewBalance = "SELECT * FROM accounts WHERE user_id = ?";
         SqlRowSet results = theDatabase.queryForRowSet(sqlViewBalance, userId);
         while (results.next()){
             theAccount = mapRowToAccount(results);
@@ -34,6 +34,7 @@ public class JDBCAccountDAO implements AccountDAO {
         Account account = new Account();
         account.setBalance(row.getDouble("balance"));
         account.setUserId(row.getLong("user_id"));
+        account.setAccountId(row.getLong("account_id"));
         return account;
 
     }
