@@ -37,12 +37,13 @@ public ApiController(AccountDAO theAccounts, UserSqlDAO theUsers, TransferDAO th
 //@PreAuthorize("isAuthenticated()")
 @RequestMapping(path="account/{id}", method = RequestMethod.GET)
 public Account getBalance(@PathVariable long id) {
-
+    System.out.println("GET account/" + id);
     return theAcctData.viewBalance(id);
 }
 
 @RequestMapping(path = "user", method = RequestMethod.GET)
 public List<User> getAllUsers(){
+ System.out.println("GET users");
     List<User> users;
     users = theUserData.findAll();
 
@@ -51,10 +52,11 @@ public List<User> getAllUsers(){
 
 @ResponseStatus(HttpStatus.CREATED)
 @RequestMapping(path = "user/{id}/transfer", method = RequestMethod.POST)
-    public Transfer sendTransfer(@PathVariable long id, long receiverId, Double amount) {
-
+public Transfer sendTransfer(@PathVariable long id, long receiverId, Double amount) {
+    System.out.println("POST - user/" + id + "/transfer");
     return theTransferData.sendTransfer(id, receiverId, amount);
 }
+
 
 
 

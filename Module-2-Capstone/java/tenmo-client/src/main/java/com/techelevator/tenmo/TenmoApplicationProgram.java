@@ -89,6 +89,8 @@ private static final String API_BASE_URL = "http://localhost:8080/";
     	console.printUsers(applicationService.getAllUsers());
 		long receiverId = Long.parseLong(console.getUserInput("Enter ID of user you are sending to (0 to cancel)"));
 		Double amountToSend = console.getUserInputDouble("Enter amount");
+		console.printTransferReceipt(applicationService.sendTransfer(currentUser.getUser().getId(), receiverId, amountToSend));
+
 		// TODO - Put code for this process here
 		
 	}

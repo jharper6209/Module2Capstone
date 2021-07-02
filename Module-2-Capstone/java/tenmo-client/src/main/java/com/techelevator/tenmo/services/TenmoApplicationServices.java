@@ -29,6 +29,7 @@ public class TenmoApplicationServices {
 
     public RestTemplate apiCall = new RestTemplate();
 
+
     @RequestMapping(path = "account/{id}", method = RequestMethod.GET )
     public Double viewBalance(long userId) {
         Account usersAccount = new Account();
@@ -45,14 +46,12 @@ public class TenmoApplicationServices {
         return users;
     }
 
-//    @RequestMapping(path = "user/{id}/transfer", method = RequestMethod.POST)
-//    public Transfer sendTransfer(@PathVariable long senderId, long receiverId, Double amount) {
-//        return apiCall.postForObject(API_BASE_URL + "user/" + senderId + "/transfer",
-//                                     makeEntity(), Transfer.class);
-//    }
-
-
- //   console.getUserInput("Username");
+    @RequestMapping(path = "user/{id}/transfer", method = RequestMethod.POST)
+    public Transfer sendTransfer(@PathVariable long senderId, long receiverId, Double amount) {
+        Transfer transfer = new Transfer();
+        return apiCall.postForObject(API_BASE_URL + "user/" + senderId + "/transfer",
+                                     makeEntity(transfer), Transfer.class);
+    }
 
     private HttpEntity<Transfer> makeEntity(Transfer transfer){
         HttpHeaders headers = new HttpHeaders();

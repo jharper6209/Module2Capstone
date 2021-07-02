@@ -2,6 +2,7 @@ package com.techelevator.view;
 
 
 import com.techelevator.tenmo.models.User;
+import com.techelevator.tenmo.models.transfer.Transfer;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -105,5 +106,9 @@ public class ConsoleService {
 		for (User user : users) {
 			System.out.println(user.getId() + "     " + user.getUsername());
 		}
+	}
+
+	public void printTransferReceipt(Transfer transfer) {
+		System.out.println("Your transfer of $" + transfer.getAmount() + " was successful.");
 	}
 }
