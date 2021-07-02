@@ -1,10 +1,11 @@
-package com.techelevator.tenmo.model.Transfer;
+package com.techelevator.tenmo.models.transfer;
 
 public class TransferDTO {
     private  long accountFrom;
     private long accountTo;
     private double amount;
-        private String userName;
+    private Long id;
+    private String userName;
 
 
     public long getAccountFrom() {
@@ -31,6 +32,14 @@ public class TransferDTO {
         this.amount = amount;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -45,6 +54,7 @@ public class TransferDTO {
                 "accountFrom=" + accountFrom +
                 ", accountTo=" + accountTo +
                 ", amount=" + amount +
+                ", id=" + id +
                 ", userName='" + userName + '\'' +
                 '}';
     }

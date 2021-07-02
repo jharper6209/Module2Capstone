@@ -1,7 +1,7 @@
 package com.techelevator.view;
 
 
-import com.techelevator.tenmo.models.UserDTO;
+import com.techelevator.tenmo.models.User;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -76,6 +76,21 @@ public class ConsoleService {
 		} while(result == null);
 		return result;
 	}
+	//Added in to cover the input if Double is needed
+	public Double getUserInputDouble(String prompt) {
+		Double result = null;
+		do {
+			out.print(prompt+": ");
+			out.flush();
+			String userInput = in.nextLine();
+			try {
+				result = Double.parseDouble(userInput);
+			} catch(NumberFormatException e) {
+				out.println(System.lineSeparator() + "*** " + userInput + " is not valid ***" + System.lineSeparator());
+			}
+		} while(result == null);
+		return result;
+	}
 
 	public void printError(String errorMessage) {
 		System.err.println(errorMessage);
@@ -85,10 +100,10 @@ public class ConsoleService {
 		System.out.println("Your current account balance is: $" + balance);
 	}
 
-	public void printUsers(List<UserDTO> users) {
+	public void printUsers(List<User> users) {
 		System.out.println("ID     USER");
-		for (UserDTO user : users) {
-			System.out.println(user.toString());
+		for (User user : users) {
+			System.out.println(user.getId() + "     " + user.getUsername());
 		}
 	}
 }

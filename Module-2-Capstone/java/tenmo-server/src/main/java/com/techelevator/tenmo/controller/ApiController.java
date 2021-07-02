@@ -3,12 +3,10 @@ package com.techelevator.tenmo.controller;
 import com.techelevator.tenmo.dao.UserSqlDAO;
 import com.techelevator.tenmo.model.Transfer.TransferDTO;
 import com.techelevator.tenmo.model.User;
-import com.techelevator.tenmo.model.UserDTO;
 import com.techelevator.tenmo.model.account.Account;
 import com.techelevator.tenmo.model.account.AccountDAO;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*******************************************************************************************************
@@ -40,28 +38,25 @@ public Account getBalance(@PathVariable long id) {
 }
 
 @RequestMapping(path = "user", method = RequestMethod.GET)
-public List<UserDTO> getAllUsers(){
+public List<User> getAllUsers(){
     List<User> users;
     users = theUserData.findAll();
-    List<UserDTO> usersLessInfo = new ArrayList();
-    for (User theUser : users) {
-        usersLessInfo.add(convertUserToUserDTO(theUser));
-    }
-    return usersLessInfo;
 
+    return users;
 }
 
 
 
 
 
-private UserDTO convertUserToUserDTO(User user) {
+
+/*private UserDTO convertUserToUserDTO(User user) {
     UserDTO userResult = new UserDTO();
     userResult.setId(user.getId());
     userResult.setUsername(user.getUsername());
 
     return userResult;
 }
-
+*/
 }
 
