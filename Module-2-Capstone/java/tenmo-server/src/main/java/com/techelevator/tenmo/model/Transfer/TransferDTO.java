@@ -1,25 +1,25 @@
 package com.techelevator.tenmo.model.Transfer;
 
+import com.techelevator.tenmo.model.account.Account;
+
 public class TransferDTO {
-    private  long accountFrom;
-    private long accountTo;
+    private Account accountFrom;
+    private Account accountTo;
     private double amount;
-        private String userName;
 
-
-    public long getAccountFrom() {
+    public Account getAccountFrom() {
         return accountFrom;
     }
 
-    public void setAccountFrom(long accountFrom) {
+    public void setAccountFrom(Account accountFrom) {
         this.accountFrom = accountFrom;
     }
 
-    public long getAccountTo() {
+    public Account getAccountTo() {
         return accountTo;
     }
 
-    public void setAccountTo(long accountTo) {
+    public void setAccountTo(Account accountTo) {
         this.accountTo = accountTo;
     }
 
@@ -31,21 +31,13 @@ public class TransferDTO {
         this.amount = amount;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     @Override
     public String toString() {
         return "TransferDTO{" +
                 "accountFrom=" + accountFrom +
                 ", accountTo=" + accountTo +
                 ", amount=" + amount +
-                ", userName='" + userName + '\'' +
                 '}';
     }
+}
 }

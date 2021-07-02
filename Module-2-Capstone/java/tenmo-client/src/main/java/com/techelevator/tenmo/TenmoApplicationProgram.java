@@ -86,7 +86,8 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void sendBucks() {
- //   	console.printUsers(applicationService.getAllUsers());
+    	System.out.println("in sendBuck()");
+    	console.printUsers(applicationService.getAllUsers());
 		Long receiverId = console.getUserInputLong("Enter ID of user you are sending to (0 to cancel)");
 		if (receiverId != 0) {
 			Double amountToSend = console.getUserInputDouble("Enter amount");

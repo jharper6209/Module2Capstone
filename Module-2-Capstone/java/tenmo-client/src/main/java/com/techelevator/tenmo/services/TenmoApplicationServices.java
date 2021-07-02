@@ -1,18 +1,20 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.models.Account.Account;
+import com.techelevator.tenmo.models.AppUser;
 import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.transfer.Transfer;
+import com.techelevator.tenmo.models.transfer.TransferDTO;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*******************************************************************************************************
@@ -30,7 +32,6 @@ public class TenmoApplicationServices {
     public RestTemplate apiCall = new RestTemplate();
 
 
-    @RequestMapping(path = "account/{id}", method = RequestMethod.GET )
     public Double viewBalance(long userId) {
         Account usersAccount = new Account();
 
@@ -39,21 +40,28 @@ public class TenmoApplicationServices {
         return usersAccount.getBalance();
     }
 
-    @RequestMapping(path="user", method = RequestMethod.GET)
+
     public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
-        users.add(apiCall.getForObject(API_BASE_URL+"user", User.class));
-        return users;
+
+        User[] users = apiCall.getForObject(API_BASE_URL+"user", User[].class);
+
+        return Arrays.asList(users);
     }
 
-    @RequestMapping(path = "user/{id}/transfer", method = RequestMethod.POST)
-    public Transfer sendTransfer(@PathVariable long senderId, long receiverId, Double amount) {
-        Transfer transfer = new Transfer();
-        return apiCall.postForObject(API_BASE_URL + "user/" + senderId + "/transfer",
-                                     makeEntity(transfer), Transfer.class);
+    public TransferDTO sendTransfer(Account sendingAccount, Account receivingAccount, Double amount) {
+
+        // Create a TransferDTO with the sendinging, receiving accounts and teh amount
+        // Call the server with the API path and TransferDTO - return teh updated TransferDTO
+        // return the updated Transfer you got from the server
+
+
+
+       // Transfer transfer = new Transfer();
+       // return apiCall.postForObject(API_BASE_URL + "user/" + senderId + "/transfer",
+       //                              makeEntity(transfer), Transfer.class);
     }
 
-    private HttpEntity<Transfer> makeEntity(Transfer transfer){
+    private HttpEntity<Transfer> makeEntity(TransferDTO transfer){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Transfer> entity = new HttpEntity(transfer, headers);

@@ -1,6 +1,7 @@
 package com.techelevator.view;
 
 
+import com.techelevator.tenmo.models.AppUser;
 import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.transfer.Transfer;
 

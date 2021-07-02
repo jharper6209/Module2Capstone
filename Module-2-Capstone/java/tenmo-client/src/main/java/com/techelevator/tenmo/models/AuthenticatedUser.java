@@ -3,7 +3,7 @@ package com.techelevator.tenmo.models;
 public class AuthenticatedUser {
 	
 	private String token;
-	private User user;
+	private AppUser user;
 	
 	public String getToken() {
 		return token;
@@ -11,10 +11,10 @@ public class AuthenticatedUser {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public User getUser() {
+	public AppUser getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(AppUser user) {
 		this.user = user;
 	}
 }
