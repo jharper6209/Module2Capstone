@@ -1,10 +1,13 @@
 package com.techelevator.tenmo.controller;
 
 import com.techelevator.tenmo.dao.UserSqlDAO;
+import com.techelevator.tenmo.model.Transfer.Transfer;
+import com.techelevator.tenmo.model.Transfer.TransferDAO;
 import com.techelevator.tenmo.model.Transfer.TransferDTO;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.account.Account;
 import com.techelevator.tenmo.model.account.AccountDAO;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,14 +23,15 @@ import java.util.List;
 public class ApiController {
 AccountDAO theAcctData;
 UserSqlDAO theUserData;
+TransferDAO theTransferData;
 TransferDTO aTransfer;
 
 
 
-public ApiController(AccountDAO theAccounts, UserSqlDAO theUsers, TransferDTO theTransfers){
+public ApiController(AccountDAO theAccounts, UserSqlDAO theUsers, TransferDAO theTransfers){
     theAcctData = theAccounts;
     theUserData = theUsers;
-    aTransfer = theTransfers;
+    theTransferData = theTransfers;
 
 }
 //@PreAuthorize("isAuthenticated()")
@@ -43,6 +47,13 @@ public List<User> getAllUsers(){
     users = theUserData.findAll();
 
     return users;
+}
+
+@ResponseStatus(HttpStatus.CREATED)
+@RequestMapping(path = "user/{id}/transfer", method = RequestMethod.POST)
+    public Transfer sendTransfer(@PathVariable long id, long receiverId, Double amount) {
+
+    return theTransferData.sendTransfer(id, receiverId, amount);
 }
 
 

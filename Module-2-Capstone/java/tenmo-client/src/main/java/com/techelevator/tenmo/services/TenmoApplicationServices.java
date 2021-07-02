@@ -2,8 +2,14 @@ package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.models.Account.Account;
 import com.techelevator.tenmo.models.User;
+import com.techelevator.tenmo.models.transfer.Transfer;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -39,7 +45,27 @@ public class TenmoApplicationServices {
         return users;
     }
 
+    @RequestMapping(path = "user/{id}/transfer", method = RequestMethod.POST)
+    public Transfer sendTransfer(@PathVariable long senderId, long receiverId, Double amount) {
+        return apiCall.postForObject(API_BASE_URL + "user/" + senderId + "/transfer",
+                                     makeEntity(), Transfer.class);
+    }
+
 
  //   console.getUserInput("Username");
+
+    private HttpEntity<Transfer> makeEntity(Transfer transfer){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Transfer> entity = new HttpEntity(transfer, headers);
+        return entity;
+    }
+
+    private Transfer makeTransfer() {
+
+
+        return null;
+
+    }
 }
 
