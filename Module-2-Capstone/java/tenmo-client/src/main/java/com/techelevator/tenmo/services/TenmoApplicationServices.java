@@ -45,11 +45,11 @@ public class TenmoApplicationServices {
         return users;
     }
 
-    @RequestMapping(path = "user/{id}/transfer", method = RequestMethod.POST)
-    public Transfer sendTransfer(@PathVariable long senderId, long receiverId, Double amount) {
-        return apiCall.postForObject(API_BASE_URL + "user/" + senderId + "/transfer",
-                                     makeEntity(), Transfer.class);
-    }
+//    @RequestMapping(path = "user/{id}/transfer", method = RequestMethod.POST)
+//    public Transfer sendTransfer(@PathVariable long senderId, long receiverId, Double amount) {
+//        return apiCall.postForObject(API_BASE_URL + "user/" + senderId + "/transfer",
+//                                     makeEntity(), Transfer.class);
+//    }
 
 
  //   console.getUserInput("Username");
@@ -62,10 +62,7 @@ public class TenmoApplicationServices {
     }
 
     private Transfer makeTransfer() {
-
-
         return null;
-
     }
 }
 
