@@ -93,6 +93,21 @@ public class ConsoleService {
 		return result;
 	}
 
+	public Long getUserInputLong(String prompt) {
+		Long result = null;
+		do {
+			out.print(prompt+": ");
+			out.flush();
+			String userInput = in.nextLine();
+			try {
+				result = Long.parseLong(userInput);
+			} catch(NumberFormatException e) {
+				out.println(System.lineSeparator() + "*** " + userInput + " is not valid ***" + System.lineSeparator());
+			}
+		} while(result == null);
+		return result;
+	}
+
 	public void printError(String errorMessage) {
 		System.err.println(errorMessage);
 	}

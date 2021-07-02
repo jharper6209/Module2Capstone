@@ -17,7 +17,7 @@ public class JDBCAccountDAO implements AccountDAO {
  }
 
     @Override
-    public Account viewBalance(long userId) {
+    public Account viewBalance(Long userId) {
      Account theAccount = new Account();
      String sqlViewBalance = "SELECT * FROM accounts WHERE user_id = ?";
         SqlRowSet results = theDatabase.queryForRowSet(sqlViewBalance, userId);

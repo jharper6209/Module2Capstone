@@ -2,50 +2,50 @@ package com.techelevator.tenmo.models.transfer;
 
 public class Transfer {
 
-    private long transferId;
-    private long transferTypeId;
-    private long transferStatusId;
-    private  long accountFrom;
-    private long accountTo;
+    private Long transferId;
+    private Long transferTypeId;
+    private Long transferStatusId;
+    private Long accountFrom;
+    private Long accountTo;
     private double amount;
 
-    public long getTransferId() {
+    public Long getTransferId() {
         return transferId;
     }
 
-    public void setTransferId(long transferId) {
+    public void setTransferId(Long transferId) {
         this.transferId = transferId;
     }
 
-    public long getTransferTypeId() {
+    public Long getTransferTypeId() {
         return transferTypeId;
     }
 
-    public void setTransferTypeId(long transferTypeId) {
+    public void setTransferTypeId(Long transferTypeId) {
         this.transferTypeId = transferTypeId;
     }
 
-    public long getTransferStatusId() {
+    public Long getTransferStatusId() {
         return transferStatusId;
     }
 
-    public void setTransferStatusId(long transferStatusId) {
+    public void setTransferStatusId(Long transferStatusId) {
         this.transferStatusId = transferStatusId;
     }
 
-    public long getAccountFrom() {
+    public Long getAccountFrom() {
         return accountFrom;
     }
 
-    public void setAccountFrom(long accountFrom) {
+    public void setAccountFrom(Long accountFrom) {
         this.accountFrom = accountFrom;
     }
 
-    public long getAccountTo() {
+    public Long getAccountTo() {
         return accountTo;
     }
 
-    public void setAccountTo(long accountTo) {
+    public void setAccountTo(Long accountTo) {
         this.accountTo = accountTo;
     }
 

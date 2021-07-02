@@ -22,7 +22,7 @@ public class JDBCTransferDAO implements TransferDAO{
 //
 //    public TransferDAO
 
-    public Transfer sendTransfer(long senderId, long receiverId, Double amount) {
+    public Transfer sendTransfer(Long senderId, Long receiverId, Double amount) {
         if (amount <= accountDAO.viewBalance(senderId).getBalance()) {
 
             String sqlInsert = "Insert into transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount)  " +

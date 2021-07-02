@@ -2,23 +2,23 @@ package com.techelevator.tenmo.models.Account;
 
 public class Account {
 
-    private long accountId;
-    private long userId;
+    private Long accountId;
+    private Long userId;
     private Double balance;
 
-    public long getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
