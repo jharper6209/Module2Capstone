@@ -30,10 +30,10 @@ public class JDBCAccountDAO implements AccountDAO {
 
 // Update Balance Methods
     public void updateAccountBalance(Account theAcctToUpdate, double amountToAdd2Balance) {
-     String updateeBalanceSQL = "update accounts " +
+     String updateBalanceSQL = "update accounts " +
                                 " set balance = balance + ? " +   // ? = amountToAdd2Balance
                                 " where account_id = ?" ;         // ? = theAccountToUpdate's account_id
-     theDatabase.update(updateeBalanceSQL, amountToAdd2Balance, theAcctToUpdate.getAccountId()) ;
+     theDatabase.update(updateBalanceSQL, amountToAdd2Balance, theAcctToUpdate.getAccountId()) ;
 
     }
 

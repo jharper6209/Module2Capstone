@@ -26,11 +26,8 @@ public class JDBCTransferDAO implements TransferDAO{
         if (amount <= accountDAO.viewBalance(senderId).getBalance()) {
 
             String sqlInsert = "Insert into transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount)  " +
-                    "values (?, ?, ?, ?, ?)" +
-                    "Update accounts set balance = ? where user_id = ?; update accounts set balance = ? where user_id = ?;";
-            theDatabase.update(sqlInsert, 2L, 2L, senderId, receiverId, amount,
-                    (accountDAO.viewBalance(senderId).getBalance() - amount), senderId,
-                    (accountDAO.viewBalance(receiverId).getBalance() + amount), receiverId);
+                    "values (?, ?, ?, ?, ?)";
+            theDatabase.update(sqlInsert, 2L, 2L, senderId, receiverId, amount);
             SqlRowSet nextId = theDatabase.queryForRowSet("select nextval('seq_transfer_id')");
             Transfer transfer = new Transfer();                                                                                //May need to reorder lines 32-37(Transfer transfer
             if (nextId.next()) {                                                                                               // - til String sqlsearch

@@ -54,7 +54,7 @@ public List<User> getAllUsers(){
     // Process a Transfer - update the sending and to Account balance and record the Transfer in the Transfer table
     //
     // path: user/transfer
-    // type of request: HTPP POST
+    // type of request: HTTP POST
     // receives: a Transfer object  in the request of the POST
     // return: the Transfer object with the Account object in it with updated balance
     //
@@ -62,6 +62,8 @@ public List<User> getAllUsers(){
     @RequestMapping(path = "user/transfer", method = RequestMethod.POST)
     public TransferDTO processTransfer(@RequestBody TransferDTO theTransferDto){
       System.out.println("POST - user/transfer");
+
+
       // Use the Account DAO to update the balance in the sending account negative amount added is subtract (-theTransferDto.getAmount())
       // Use the Account DAO to update the balance in the receiving account
       // Create a Transfer object using the data in the TransferDTO and any constant values
@@ -71,7 +73,7 @@ public List<User> getAllUsers(){
       //             Use the TransferDTOADO to set the sending account in the TransferDTO to updated sending Account
       // Replace the sending Account object in the  TransferDTO with a new version that has teh updated balance
       //             Use the AccountDAO to retrieve the receiving  account
-      //             Use the TransferDTOADO to set the receiveing  account in the TransferDTO to updated recieving Account
+      //             Use the TransferDTOADO to set the receiving  account in the TransferDTO to updated receiving Account
       // return theTransferDTO
 
 
