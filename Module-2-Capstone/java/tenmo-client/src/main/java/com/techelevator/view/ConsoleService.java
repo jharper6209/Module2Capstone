@@ -114,25 +114,25 @@ public class ConsoleService {
 	}
 
 	public void printBalance(Double balance) {
-		System.out.println("Your current account balance is: $" + balance);
+		System.out.println("-".repeat(30) + "\nYour current account balance is: $" + balance + "\n" + "-".repeat(30));
 	}
 
 	public void printUsers(List<User> users) {
-		System.out.println("ID     USER");
+		System.out.println("ID     USER" + "\n" + "-".repeat(30));
 		for (User user : users) {
 			System.out.println(user.getId() + "      " + user.getUsername());
 		}
 	}
 
 	public void printTransfers(List<Transfer> transfers) {
-		System.out.println("Transfer History");
+		System.out.println("Transfer History\n" + "-".repeat(30));
 		for (Transfer transfer : transfers) {
 			System.out.println("transferId: " + transfer.getTransferId() + "\n accountFrom: " + transfer.getAccountFrom()
-			+ "\n accountTo: " + transfer.getAccountTo() + "\n amount: $" +transfer.getAmount());
+			+ "\n accountTo: " + transfer.getAccountTo() + "\n amount: $" +transfer.getAmount() + "\n" + "-".repeat(30));
 		}
 	}
 
 	public void printTransferReceipt(TransferDTO transfer) {
-		System.out.println("Your transfer of $" + transfer.getAmount() + " was successful.");
+		System.out.println("-".repeat(30) + "\nYour transfer of $" + transfer.getAmount() + " was successful." + "\n" + "-".repeat(30));
 	}
 }
