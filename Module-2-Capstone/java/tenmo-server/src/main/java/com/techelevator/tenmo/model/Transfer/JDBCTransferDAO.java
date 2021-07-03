@@ -27,28 +27,18 @@ public class JDBCTransferDAO implements TransferDAO{
 
     public Transfer sendTransfer(Transfer transfer) {
 
-        if (transfer.getAmount() <= accountDAO.viewBalance(transfer.getAccountFrom()).getBalance()) {
-            SqlRowSet nextId = theDatabase.queryForRowSet("select nextval('seq_transfer_id')");
-            //May need to reorder lines 32-37(Transfer transfer
-            if (nextId.next()) {                                                                                               // - til String sqlsearch
-                transfer.setTransferId(nextId.getLong(1));
-            } else {
-                throw new RuntimeException("There was no next Transfer");
-            }
             String sqlInsert = "Insert into transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount)  " +
                     "values (?, ?, ?, ?, ?)";
             theDatabase.update(sqlInsert, transfer.getTransferTypeId(), transfer.getTransferStatusId(),
                     transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
 
             return transfer;
-        } else {
-            return null;
-        }
+
     }
 
     public Long getTransferId() {
         SqlRowSet nextId = theDatabase.queryForRowSet("select nextval('seq_transfer_id')");
-        //May need to reorder lines 32-37(Transfer transfer
+
         Long id = null;
         if (nextId.next()) {                                                                                               // - til String sqlsearch
             id = nextId.getLong(1);

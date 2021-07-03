@@ -93,7 +93,11 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		Long receiverId = console.getUserInputLong("Enter ID of user you are sending to (0 to cancel)");
 		if (receiverId != 0) {
 			Double amountToSend = console.getUserInputDouble("Enter amount");
-			console.printTransferReceipt(applicationService.sendTransfer(currentUser.getUser().getId(), receiverId, amountToSend));
+			if (amountToSend > applicationService.viewBalance(currentUser.getUser().getId()).getBalance()) {
+				console.printError("Your balance is insufficient for this transfer.");
+			} else {
+				console.printTransferReceipt(applicationService.sendTransfer(currentUser.getUser().getId(), receiverId, amountToSend));
+			}
 		}
 		// TODO - Put code for this process here
 		

@@ -110,7 +110,7 @@ public class ConsoleService {
 	}
 
 	public void printError(String errorMessage) {
-		System.err.println(errorMessage);
+		System.out.println(errorMessage);
 	}
 
 	public void printBalance(Double balance) {
@@ -128,7 +128,7 @@ public class ConsoleService {
 		System.out.println("Transfer History");
 		for (Transfer transfer : transfers) {
 			System.out.println("transferId: " + transfer.getTransferId() + "\n accountFrom: " + transfer.getAccountFrom()
-			+ "\n accountTo" + transfer.getAccountTo() + "\n amount: $" +transfer.getAmount());
+			+ "\n accountTo: " + transfer.getAccountTo() + "\n amount: $" +transfer.getAmount());
 		}
 	}
 
