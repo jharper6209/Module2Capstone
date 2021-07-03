@@ -120,7 +120,7 @@ public class ConsoleService {
 	public void printUsers(List<User> users) {
 		System.out.println("ID     USER");
 		for (User user : users) {
-			System.out.println(user.getId() + "     " + user.getUsername());
+			System.out.println(user.getId() + "      " + user.getUsername());
 		}
 	}
 

@@ -58,43 +58,47 @@ public List<User> getAllUsers(){
     // return: the Transfer object with the Account object in it with updated balance
     //
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "transfer", method = RequestMethod.POST)
-    public TransferDTO processTransfer(@RequestParam Long senderId, @RequestParam Long receiverId,
-                                       @RequestParam Double amount){
+    @RequestMapping(path = "user/transfer", method = RequestMethod.POST)
+    public TransferDTO processTransfer(@RequestBody TransferDTO transferDTO){
       System.out.println("POST - user/transfer");
-      TransferDTO transferDTO = createTransferDto(senderId, receiverId, amount);
-      theAcctData.updateAccountBalance(transferDTO.getAccountFrom(), -amount);
-      theAcctData.updateAccountBalance(transferDTO.getAccountTo(), amount);
-
+        // Use the Account DAO to update the balance in the sending account negative amount added is subtract (-theTransferDto.getAmount())
+      theAcctData.updateAccountBalance(transferDTO.getAccountFrom(), -transferDTO.getAmount());
+        // Use the Account DAO to update the balance in the receiving account
+      theAcctData.updateAccountBalance(transferDTO.getAccountTo(), transferDTO.getAmount());
+        // Create a Transfer object using the data in the TransferDTO and any constant values
       Transfer transferObject = createTransferFromTransferDto(transferDTO);
+        // Use the TransferDAO to add the new Transfer object to transfer
+      theTransferData.sendTransfer(transferObject);
+        // Replace the sending Account object in the  TransferDTO with a new version that has the updated balance
+      transferDTO.setAccountFrom(theAcctData.viewBalance(transferObject.getAccountFrom()));
+        //             Use the AccountDAO to retrieve the sending account
+      transferDTO.setAccountTo(theAcctData.viewBalance(transferObject.getAccountTo()));
+      transferObject.setAccountFrom(transferDTO.getAccountFrom().getUserId());
 
-      theTransferData.sendTransfer(transferDTO);
 
-      transferDTO.setAccountFrom(theAcctData.viewBalance(senderId));
-      transferDTO.setAccountTo(theAcctData.viewBalance(receiverId));
-      transferObject.setAccountFrom(senderId);
-
-      // Use the Account DAO to update the balance in the sending account negative amount added is subtract (-theTransferDto.getAmount())******
-      // Use the Account DAO to update the balance in the receiving account*******
-      // Create a Transfer object using the data in the TransferDTO and any constant values*******
-      // Use the TransferDAO to add the new Transfer object to transfer ********
-      // Replace the sending Account object in the  TransferDTO with a new version that has teh updated balance*****
-      //             Use the AccountDAO to retrieve the sending account*******
       //             Use the TransferDTOADO to set the sending account in the TransferDTO to updated sending Account????????????
       // Replace the sending Account object in the  TransferDTO with a new version that has teh updated balance???????????????
       //             Use the AccountDAO to retrieve the receiving  account
       //             Use the TransferDTOADO to set the receiving  account in the TransferDTO to updated receiving Account
-      // return theTransferDTO ************
 
+    // return theTransferDTO ************
       return transferDTO;
     }
 
-    @RequestMapping(path = "transfer", method = RequestMethod.GET)
-    public List<Transfer> getAllTransfers(){
+    @RequestMapping(path = "user/transfer", method = RequestMethod.GET)
+    public List<Transfer> getAllTransfersForUser(User user){
         System.out.println("GET transfers");
         List<Transfer> transfers = new ArrayList();
+        List<Transfer> usersTransfers = new ArrayList();
         transfers = theTransferData.findAll();
-        return transfers;
+
+        for (Transfer transfer: transfers) {
+            if (user.getId() == transfer.getAccountFrom() || user.getId() == transfer.getAccountTo()) {
+                usersTransfers.add(transfer);
+            }
+        }
+
+        return usersTransfers;
     }
 
 
@@ -114,6 +118,7 @@ private Transfer createTransferFromTransferDto(TransferDTO transferDto) {
     transfer.setAmount(transfer.getAmount());
     transfer.setTransferStatusId(2L);
     transfer.setTransferTypeId(2L);
+  //  transfer.setTransferId(theTransferData.getTransferId());
 
     return transfer;
 }

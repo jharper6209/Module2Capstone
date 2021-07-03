@@ -4,7 +4,8 @@ import java.util.List;
 
 public interface TransferDAO {
 
-    public TransferDTO sendTransfer(TransferDTO transfer);
+    public Transfer sendTransfer(Transfer transfer);
     public List<Transfer> findAll();
+    public Long getTransferId();
 
 }

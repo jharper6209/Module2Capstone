@@ -6,6 +6,7 @@ import com.techelevator.tenmo.models.transfer.Transfer;
 import com.techelevator.tenmo.models.transfer.TransferDTO;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,12 +28,12 @@ public class TenmoApplicationServices {
     public RestTemplate apiCall = new RestTemplate();
 
 
-    public Double viewBalance(long userId) {
+    public Account viewBalance(long userId) {
         Account usersAccount = new Account();
 
         usersAccount = apiCall.getForObject(API_BASE_URL + "account/" + userId, Account.class);
 
-        return usersAccount.getBalance();
+        return usersAccount;
     }
 
 
@@ -44,33 +45,43 @@ public class TenmoApplicationServices {
     }
 
     public TransferDTO sendTransfer(Long senderId, Long receiverId, Double amount) {
-
-        TransferDTO transferDto = apiCall.postForObject(API_BASE_URL + "transfer",
-                makeEntity(createTransfer(senderId, receiverId, amount)), TransferDTO.class);
-        // Create a TransferDTO with the sendinging, receiving accounts and teh amount
-        // Call the server with the API path and TransferDTO - return teh updated TransferDTO
+        TransferDTO transferDto = mapToTransferDto(senderId, receiverId, amount);
+         apiCall.postForObject(API_BASE_URL + "user/transfer",
+                                makeEntity(transferDto), TransferDTO.class);
+        // Create a TransferDTO with the sending, receiving accounts and the amount
+        // Call the server with the API path and TransferDTO - return the updated TransferDTO
         // return the updated Transfer you got from the server
 
-        // Transfer transfer = new Transfer();
+        // Transfer transfer = ;
 
         return transferDto;
     }
 
-    private HttpEntity<Transfer> makeEntity(Transfer transfer) {
+    private HttpEntity<TransferDTO> makeEntity(TransferDTO transferDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Transfer> entity = new HttpEntity(transfer, headers);
+        HttpEntity<TransferDTO> entity = new HttpEntity(transferDto, headers);
         return entity;
     }
 
+    private TransferDTO mapToTransferDto(Long senderId, Long receiverId, Double amount) {
+        TransferDTO transferDTO = new TransferDTO();
+        transferDTO.setAccountFrom(viewBalance(senderId));
+        transferDTO.setAccountTo(viewBalance(receiverId));
+        transferDTO.setAmount(amount);
 
-    private Transfer createTransfer(Long senderId, Long receiverId, Double amount) {
+        return transferDTO;
+    }
+
+
+    private Transfer createTransferFromTransferDto(TransferDTO transferDto) {
         Transfer transfer = new Transfer();
-        transfer.setAccountFrom(senderId);
-        transfer.setAccountTo(receiverId);
+        transfer.setAccountFrom(transferDto.getAccountFrom().getAccountId());
+        transfer.setAccountTo(transferDto.getAccountTo().getAccountId());
         transfer.setAmount(transfer.getAmount());
         transfer.setTransferStatusId(2L);
         transfer.setTransferTypeId(2L);
+        //  transfer.setTransferId(theTransferData.getTransferId());
 
         return transfer;
     }
