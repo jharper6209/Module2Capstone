@@ -44,6 +44,12 @@ public class TenmoApplicationServices {
         return Arrays.asList(users);
     }
 
+    public List<Transfer> getAllTransfersForUser(User user) {
+        Transfer[] transfers = apiCall.getForObject(API_BASE_URL+"user/transfer", Transfer[].class);
+
+        return Arrays.asList(transfers);
+    }
+
     public TransferDTO sendTransfer(Long senderId, Long receiverId, Double amount) {
         TransferDTO transferDto = mapToTransferDto(senderId, receiverId, amount);
          apiCall.postForObject(API_BASE_URL + "user/transfer",

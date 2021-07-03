@@ -101,16 +101,6 @@ public List<User> getAllUsers(){
         return usersTransfers;
     }
 
-
-private TransferDTO createTransferDto(Long senderId, Long receiverId, Double amount) {
-    TransferDTO transferDTO = new TransferDTO();
-    transferDTO.setAccountFrom(theAcctData.viewBalance(senderId));
-    transferDTO.setAccountTo(theAcctData.viewBalance(receiverId));
-    transferDTO.setAmount(amount);
-
-    return transferDTO;
-}
-
 private Transfer createTransferFromTransferDto(TransferDTO transferDto) {
     Transfer transfer = new Transfer();
     transfer.setAccountFrom(transferDto.getAccountFrom().getAccountId());

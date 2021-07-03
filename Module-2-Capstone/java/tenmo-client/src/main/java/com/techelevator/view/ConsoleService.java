@@ -124,6 +124,14 @@ public class ConsoleService {
 		}
 	}
 
+	public void printTransfers(List<Transfer> transfers) {
+		System.out.println("Transfer History");
+		for (Transfer transfer : transfers) {
+			System.out.println("transferId: " + transfer.getTransferId() + "\n accountFrom: " + transfer.getAccountFrom()
+			+ "\n accountTo" + transfer.getAccountTo() + "\n amount: $" +transfer.getAmount());
+		}
+	}
+
 	public void printTransferReceipt(TransferDTO transfer) {
 		System.out.println("Your transfer of $" + transfer.getAmount() + " was successful.");
 	}
