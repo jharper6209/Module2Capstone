@@ -1,7 +1,10 @@
 package com.techelevator.tenmo.model.Transfer;
 
+import java.util.List;
+
 public interface TransferDAO {
 
-    public Transfer sendTransfer(Long senderId, Long receiverId, Double amount);
+    public TransferDTO sendTransfer(TransferDTO transfer);
+    public List<Transfer> findAll();
 
 }

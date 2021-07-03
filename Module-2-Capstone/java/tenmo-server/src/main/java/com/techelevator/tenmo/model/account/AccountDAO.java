@@ -6,6 +6,7 @@ public interface AccountDAO {
 
     public Account viewBalance(Long userId);
 
+    public void updateAccountBalance(Account theAcctToUpdate, double amountToAdd2Balance);
 
 
 }

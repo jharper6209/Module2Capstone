@@ -1,11 +1,14 @@
 package com.techelevator.tenmo.model.Transfer;
 
+import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.account.JDBCAccountDAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JDBCTransferDAO implements TransferDAO{
@@ -22,29 +25,39 @@ public class JDBCTransferDAO implements TransferDAO{
 //
 //    public TransferDAO
 
-    public Transfer sendTransfer(Long senderId, Long receiverId, Double amount) {
-        if (amount <= accountDAO.viewBalance(senderId).getBalance()) {
+    public TransferDTO sendTransfer(TransferDTO transferDto) {
+
+        Transfer transfer = createTransferFromTransferDto(transferDto);
+        if (transfer.getAmount() <= accountDAO.viewBalance(transfer.getAccountFrom()).getBalance()) {
 
             String sqlInsert = "Insert into transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount)  " +
                     "values (?, ?, ?, ?, ?)";
-            theDatabase.update(sqlInsert, 2L, 2L, senderId, receiverId, amount);
+            theDatabase.update(sqlInsert, transfer.getTransferTypeId(), transfer.getTransferStatusId(),
+                    transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
             SqlRowSet nextId = theDatabase.queryForRowSet("select nextval('seq_transfer_id')");
-            Transfer transfer = new Transfer();                                                                                //May need to reorder lines 32-37(Transfer transfer
+            //May need to reorder lines 32-37(Transfer transfer
             if (nextId.next()) {                                                                                               // - til String sqlsearch
                 transfer.setTransferId(nextId.getLong(1));
             } else {
                 throw new RuntimeException("There was no next Transfer");
             }
-            String sqlSearch = "SELECT * FROM transfers WHERE transfer_id = ?";
-            SqlRowSet results = theDatabase.queryForRowSet(sqlSearch, transfer.getTransferId());
-            while (results.next()) {
-                mapRowToTransfer(results, transfer);
-            }
-
-            return transfer;
+            return transferDto;
         } else {
             return null;
         }
+    }
+
+    public List<Transfer> findAll() {
+        List<Transfer> transfers = new ArrayList<>();
+        String sql = "select * from transfers";
+
+        SqlRowSet results = theDatabase.queryForRowSet(sql);
+        while(results.next()) {
+            Transfer transfer = mapRowToTransfer(results);
+            transfers.add(transfer);
+        }
+
+        return transfers;
     }
 
 
@@ -71,6 +84,17 @@ public class JDBCTransferDAO implements TransferDAO{
         transfer.setAmount(rowSet.getDouble("amount"));
         transfer.setTransferStatusId(rowSet.getLong("transfer_status_id"));
         transfer.setTransferTypeId(rowSet.getLong("transfer_type_id"));
+        return transfer;
+    }
+
+    private Transfer createTransferFromTransferDto(TransferDTO transferDto) {
+        Transfer transfer = new Transfer();
+        transfer.setAccountFrom(transferDto.getAccountFrom().getAccountId());
+        transfer.setAccountTo(transferDto.getAccountTo().getAccountId());
+        transfer.setAmount(transfer.getAmount());
+        transfer.setTransferStatusId(2L);
+        transfer.setTransferTypeId(2L);
+
         return transfer;
     }
 }

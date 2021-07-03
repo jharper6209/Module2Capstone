@@ -1,9 +1,9 @@
 package com.techelevator.view;
 
 
-import com.techelevator.tenmo.models.AppUser;
 import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.transfer.Transfer;
+import com.techelevator.tenmo.models.transfer.TransferDTO;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -124,7 +124,7 @@ public class ConsoleService {
 		}
 	}
 
-	public void printTransferReceipt(Transfer transfer) {
+	public void printTransferReceipt(TransferDTO transfer) {
 		System.out.println("Your transfer of $" + transfer.getAmount() + " was successful.");
 	}
 }
