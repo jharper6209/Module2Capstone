@@ -51,11 +51,13 @@ public class TenmoApplicationServices {
     }
 
     public TransferDTO sendTransfer(Long senderId, Long receiverId, Double amount) {
-        TransferDTO transferDto = mapToTransferDto(senderId, receiverId, amount);
-         apiCall.postForObject(API_BASE_URL + "user/transfer",
-                                makeEntity(transferDto), TransferDTO.class);
         // Create a TransferDTO with the sending, receiving accounts and the amount
+        TransferDTO transferDto = mapToTransferDto(senderId, receiverId, amount);
         // Call the server with the API path and TransferDTO - return the updated TransferDTO
+        apiCall.postForObject(API_BASE_URL + "user/transfer",
+                                makeEntity(transferDto), TransferDTO.class);
+
+
         // return the updated Transfer you got from the server
 
         // Transfer transfer = ;

@@ -70,18 +70,18 @@ public List<User> getAllUsers(){
         // Use the TransferDAO to add the new Transfer object to transfer
       theTransferData.sendTransfer(transferObject);
         // Replace the sending Account object in the  TransferDTO with a new version that has the updated balance
-      transferDTO.setAccountFrom(theAcctData.viewBalance(transferObject.getAccountFrom()));
         //             Use the AccountDAO to retrieve the sending account
+        //             Use the TransferDTOADO to set the sending account in the TransferDTO to updated sending Account
+      transferDTO.setAccountFrom(theAcctData.viewBalance(transferObject.getAccountFrom()));
+        // Replace the sending Account object in the  TransferDTO with a new version that has teh updated balance
+        //             Use the AccountDAO to retrieve the receiving  account
+        //             Use the TransferDTOADO to set the receiving  account in the TransferDTO to updated receiving Account
       transferDTO.setAccountTo(theAcctData.viewBalance(transferObject.getAccountTo()));
-      transferObject.setAccountFrom(transferDTO.getAccountFrom().getUserId());
+   //   transferObject.setAccountFrom(transferDTO.getAccountFrom().getUserId());
 
 
-      //             Use the TransferDTOADO to set the sending account in the TransferDTO to updated sending Account????????????
-      // Replace the sending Account object in the  TransferDTO with a new version that has teh updated balance???????????????
-      //             Use the AccountDAO to retrieve the receiving  account
-      //             Use the TransferDTOADO to set the receiving  account in the TransferDTO to updated receiving Account
 
-    // return theTransferDTO ************
+    // return theTransferDTO
       return transferDTO;
     }
 
