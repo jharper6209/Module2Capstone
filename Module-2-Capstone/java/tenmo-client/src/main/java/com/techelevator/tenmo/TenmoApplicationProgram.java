@@ -1,12 +1,15 @@
 package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.models.AuthenticatedUser;
+import com.techelevator.tenmo.models.User;
 import com.techelevator.tenmo.models.UserCredentials;
 import com.techelevator.tenmo.models.transfer.Transfer;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.tenmo.services.TenmoApplicationServices;
 import com.techelevator.view.ConsoleService;
+
+import java.util.List;
 
 public class TenmoApplicationProgram {
 
@@ -81,11 +84,22 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 		console.printTransfers(applicationService.getAllTransfersForUser(currentUser.getUser()));
 		Long transferID = console.getUserInputLong("Please enter Transfer ID to view details (0 to cancel) ");
+		List<User> users = applicationService.getAllUsers();
+		User toUser = new User();
+		User fromUser = new User();
+
 		if (transferID != 0) {
 			Transfer transfer = applicationService.viewTransferHistory(transferID);
+			for (User user : users) {
+				if (transfer.getAccountFrom() == user.getId()) {
+					fromUser = user;
+				}
+				if (transfer.getAccountTo() == user.getId()) {
+					toUser = user;
+				}
+			}
 			if (transfer.getTransferId() != null){
-
-			console.printTransferDetails(transfer);
+				console.printTransferDetails(transfer, fromUser, toUser);
 			} else {
 				console.printError("Not a Valid Transfer Id");
 			}

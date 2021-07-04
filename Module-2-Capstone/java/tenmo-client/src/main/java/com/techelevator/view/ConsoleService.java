@@ -136,8 +136,8 @@ public class ConsoleService {
 		System.out.println("-".repeat(30) + "\nYour transfer of $" + transfer.getAmount() + " was successful." + "\n" + "-".repeat(30));
 	}
 
-	public void printTransferDetails(Transfer transfer) {
-		System.out.println("Transfer Details \n" + "-".repeat(30) + "\nID: " + transfer.getTransferId() + "\nFrom: " + transfer.getAccountFrom() + "\nTo: " + transfer.getAccountTo()
+	public void printTransferDetails(Transfer transfer, User fromUser, User toUser) {
+		System.out.println("Transfer Details \n" + "-".repeat(30) + "\nID: " + transfer.getTransferId() + "\nFrom: " + fromUser.getUsername() + "\nTo: " + toUser.getUsername()
 				+ "\nType: Send " + "\nStatus: Approved" + "\nAmount: " + transfer.getAmount() + "\n" + "-".repeat(30));
 	}
 
