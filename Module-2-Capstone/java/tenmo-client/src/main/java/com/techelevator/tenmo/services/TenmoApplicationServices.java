@@ -65,6 +65,13 @@ public class TenmoApplicationServices {
         return transferDto;
     }
 
+    public Transfer viewTransferHistory(Long transferId) {
+        Transfer transferHistory = apiCall.getForObject(API_BASE_URL + "user/transfer/" + transferId, Transfer.class);
+        return transferHistory;
+    }
+
+
+
     private HttpEntity<TransferDTO> makeEntity(TransferDTO transferDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -80,6 +87,7 @@ public class TenmoApplicationServices {
 
         return transferDTO;
     }
+
 
 
     private Transfer createTransferFromTransferDto(TransferDTO transferDto) {

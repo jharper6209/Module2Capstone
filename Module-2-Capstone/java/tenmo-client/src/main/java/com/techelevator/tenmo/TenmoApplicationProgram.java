@@ -79,7 +79,10 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		// TODO - Put code for this process here
 
 		console.printTransfers(applicationService.getAllTransfersForUser(currentUser.getUser()));
-		
+		Long transferID = console.getUserInputLong("Please enter Transfer ID to view details (0 to cancel) ");
+		if (transferID != 0) {
+			console.printTransferDetails(applicationService.viewTransferHistory(transferID));
+		}
 	}
 
 	private void viewPendingRequests() {

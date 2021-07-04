@@ -6,6 +6,6 @@ public interface TransferDAO {
 
     public Transfer sendTransfer(Transfer transfer);
     public List<Transfer> findAll();
-    public Long getTransferId();
-
+    public Long getNextTransferId();
+    public Transfer searchTransferById(Long id);
 }

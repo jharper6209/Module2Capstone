@@ -35,10 +35,9 @@ public class JDBCTransferDAO implements TransferDAO{
             return transfer;
 
     }
-
+/*
     public Long getTransferId() {
         SqlRowSet nextId = theDatabase.queryForRowSet("select nextval('seq_transfer_id')");
-
         Long id = null;
         if (nextId.next()) {                                                                                               // - til String sqlsearch
             id = nextId.getLong(1);
@@ -47,8 +46,18 @@ public class JDBCTransferDAO implements TransferDAO{
         }
         return id;
     }
+*/
+    public Long getNextTransferId() {
+        SqlRowSet nextTransferId = theDatabase.queryForRowSet("select nextval('seq_transfer_id')");
 
-    public List<Transfer> findAll() {
+        if (nextTransferId.next()) {
+            return  nextTransferId.getLong(1);
+        } else {
+            throw new RuntimeException("There was no next Transfer Option");
+        }
+    }
+
+       public List<Transfer> findAll() {
         List<Transfer> transfers = new ArrayList<>();
         String sql = "select * from transfers";
 
@@ -62,18 +71,22 @@ public class JDBCTransferDAO implements TransferDAO{
     }
 
 
-//    public Transfer getTransferInfo(long id){    }
-
-
-    //
-
+    public Transfer searchTransferById(Long id) {
+        String sqlTransfer = "Select * From transfers Where transfer_id = ?";
+        SqlRowSet sqlSearch = theDatabase.queryForRowSet(sqlTransfer, id);
+        Transfer transfer = new Transfer();
+        while (sqlSearch.next()) {
+            transfer = mapRowToTransfer(sqlSearch);
+        }
+        return transfer;
+    }
 
     private Transfer mapRowToTransfer(SqlRowSet rowSet) {
         Transfer transfer = new Transfer();
         transfer.setAccountFrom(rowSet.getLong("account_from"));
         transfer.setAccountTo(rowSet.getLong("account_to"));
         transfer.setAmount(rowSet.getDouble("amount"));
- //       transfer.setTransferId(rowSet.getLong("transferId"));
+        transfer.setTransferId(rowSet.getLong("transfer_Id"));
         transfer.setTransferStatusId(rowSet.getLong("transfer_status_id"));
         transfer.setTransferTypeId(rowSet.getLong("transfer_type_id"));
         return transfer;

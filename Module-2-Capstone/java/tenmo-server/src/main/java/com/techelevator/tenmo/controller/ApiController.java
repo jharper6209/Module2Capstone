@@ -82,7 +82,7 @@ public TransferDTO processTransfer(@RequestBody TransferDTO transferDTO){
    theAcctData.updateAccountBalance(transferDTO.getAccountTo(), transferDTO.getAmount());
         // Create a Transfer object using the data in the TransferDTO and any constant values
    Transfer transferObject = createTransferFromTransferDto(transferDTO);
-   transferObject.setTransferId(theTransferData.getTransferId());
+   transferObject.setTransferId(theTransferData.getNextTransferId());
         // Use the TransferDAO to add the new Transfer object to transfer
    theTransferData.sendTransfer(transferObject);
         // Replace the sending Account object in the  TransferDTO with a new version that has the updated balance
@@ -111,6 +111,13 @@ private Transfer createTransferFromTransferDto(TransferDTO transferDto) {
     return transfer;
 }
 
+@RequestMapping(path = "user/transfer/{id}", method = RequestMethod.GET)
+ public Transfer searchTransferById(@PathVariable Long id) {
+    System.out.println("Get - Transfer By Id");
+
+    Transfer transfer = theTransferData.searchTransferById(id);
+    return transfer;
+}
 
 
 }
