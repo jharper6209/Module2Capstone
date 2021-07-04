@@ -62,7 +62,7 @@ public List<Transfer> getAllTransfersForUser(User user){
             usersTransfers.add(transfer);
         }
     }
-    return transfers;
+    return usersTransfers; // user is null
 }
 
     // Process a Transfer - update the sending and to Account balance and record the Transfer in the Transfer table

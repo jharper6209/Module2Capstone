@@ -2,6 +2,7 @@ package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.models.AuthenticatedUser;
 import com.techelevator.tenmo.models.UserCredentials;
+import com.techelevator.tenmo.models.transfer.Transfer;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.tenmo.services.TenmoApplicationServices;
@@ -81,7 +82,13 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		console.printTransfers(applicationService.getAllTransfersForUser(currentUser.getUser()));
 		Long transferID = console.getUserInputLong("Please enter Transfer ID to view details (0 to cancel) ");
 		if (transferID != 0) {
-			console.printTransferDetails(applicationService.viewTransferHistory(transferID));
+			Transfer transfer = applicationService.viewTransferHistory(transferID);
+			if (transfer.getTransferId() != null){
+
+			console.printTransferDetails(transfer);
+			} else {
+				console.printError("Not a Valid Transfer Id");
+			}
 		}
 	}
 
