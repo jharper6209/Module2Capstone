@@ -65,6 +65,13 @@ public List<Transfer> getAllTransfersForUser(User user){
     return usersTransfers; // user is null
 }
 
+    @RequestMapping(path = "user/{id}/transfer", method = RequestMethod.GET)
+    public List<Transfer> getAllTransfersForAUser(@PathVariable Long id){
+        System.out.println("GET user/"+id + "/transfer");
+        List<Transfer> userTransfers = new ArrayList();
+        userTransfers = theTransferData.searchTransferByUserId(id);
+        return userTransfers;
+    }
     // Process a Transfer - update the sending and to Account balance and record the Transfer in the Transfer table
     //
     // path: user/transfer

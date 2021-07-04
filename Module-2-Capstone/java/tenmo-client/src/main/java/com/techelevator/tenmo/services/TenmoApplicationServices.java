@@ -44,11 +44,7 @@ public class TenmoApplicationServices {
         return Arrays.asList(users);
     }
 
-    public List<Transfer> getAllTransfersForUser(User user) {
-        Transfer[] transfers = apiCall.getForObject(API_BASE_URL+"user/transfer", Transfer[].class);
 
-        return Arrays.asList(transfers);
-    }
 
     public TransferDTO sendTransfer(Long senderId, Long receiverId, Double amount) {
         // Create a TransferDTO with the sending, receiving accounts and the amount
@@ -69,6 +65,13 @@ public class TenmoApplicationServices {
         Transfer transferHistory = apiCall.getForObject(API_BASE_URL + "user/transfer/" + transferId, Transfer.class);
         return transferHistory;
     }
+
+    public List<Transfer> getAllTransfersForUser(User user) {
+        // Frank changed path to be more RESTful (user/{id}/transfer and to use new path
+        Transfer[] transfers = apiCall.getForObject(API_BASE_URL+"user/"+user.getId()+"/transfer", Transfer[].class);
+        return Arrays.asList(transfers);
+    }
+
 
 
 

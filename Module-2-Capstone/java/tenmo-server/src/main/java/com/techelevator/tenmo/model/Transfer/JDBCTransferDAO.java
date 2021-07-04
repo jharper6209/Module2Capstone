@@ -81,6 +81,16 @@ public class JDBCTransferDAO implements TransferDAO{
         return transfer;
     }
 
+    public List<Transfer> searchTransferByUserId(Long id) {
+        List<Transfer> theTransfers = new ArrayList<Transfer>();
+        String sqlTransfer = "Select * From transfers Where account_from = ? or account_to = ?";
+        SqlRowSet sqlSearch = theDatabase.queryForRowSet(sqlTransfer, id, id);
+        while (sqlSearch.next()) {
+            theTransfers.add(mapRowToTransfer(sqlSearch));
+        }
+        return theTransfers;
+    }
+
     private Transfer mapRowToTransfer(SqlRowSet rowSet) {
         Transfer transfer = new Transfer();
         transfer.setAccountFrom(rowSet.getLong("account_from"));

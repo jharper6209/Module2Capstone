@@ -8,4 +8,5 @@ public interface TransferDAO {
     public List<Transfer> findAll();
     public Long getNextTransferId();
     public Transfer searchTransferById(Long id);
+    public List<Transfer> searchTransferByUserId(Long id);
 }
